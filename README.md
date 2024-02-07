@@ -1,5 +1,5 @@
-# autohats-private
-atuo hats bot is yes (private source code we can fork it to make public versio)
+# autohats
+atuo hats bot is yes 
 
 ## how to install and run
 1. pip install -r requirements.txt
