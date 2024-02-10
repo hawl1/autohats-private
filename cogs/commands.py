@@ -6,7 +6,12 @@
 
 from discord.ext import commands
 
+
 class Commands(commands.Cog):
+    """
+        Command class.
+    """
+
     def __init__(self, bot):
         super().__init__()
         self.bot = bot
@@ -14,10 +19,9 @@ class Commands(commands.Cog):
     @commands.command()
     async def commands(self, ctx):
         """
-            Lists up commands.
+        Lists up commands.
         """
-        message_content = "# AC3 Commands\n" \
-                          "Here is a list of available AC3 commands.\n\n"
+        message_content = "# AC3 Commands\n Here is a list of available AC3 commands.\n\n"
 
         commands_dict = {
             "/say": "Send a message in the chat.",
@@ -41,7 +45,7 @@ class Commands(commands.Cog):
             "/language": "Set your preferred language.",
             "/correct": "Correct a previous message.",
             "/translate": "Translate a message.",
-            "/register": "Register for an AC3 account."
+            "/register": "Register for an AC3 account.",
         }
 
         for command, description in commands_dict.items():
@@ -54,6 +58,6 @@ class Commands(commands.Cog):
 
 async def setup(bot):
     """
-        Adds the cog to bot.
+    Adds the cog to bot.
     """
     await bot.add_cog(Commands(bot))
