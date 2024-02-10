@@ -38,4 +38,4 @@ async def on_ready():
     print("------")
 
 
-bot.run(config["TOKEN"])
+bot.run(config["DISCORD_TOKEN"])
