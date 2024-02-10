@@ -1,6 +1,7 @@
 """
     Cog that sends a random number between 1 and 1000.
 """
+
 import random
 from discord.ext import commands
 
