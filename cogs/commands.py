@@ -1,7 +1,7 @@
 """
     commands.py
 
-    Lists out commands for AC3
+    Lists out commands for AC3.
 """
 
 from discord.ext import commands
@@ -49,12 +49,11 @@ class Commands(commands.Cog):
 
         message_content += "\nMore commands soon!"
 
-        # Sending the message
         await ctx.author.send(message_content)
 
 
 async def setup(bot):
     """
-        Adds the cog to bot when bot tries to add this.
+        Adds the cog to bot.
     """
     await bot.add_cog(Commands(bot))
