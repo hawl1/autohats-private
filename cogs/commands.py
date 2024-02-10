@@ -9,7 +9,7 @@ from discord.ext import commands
 
 class Commands(commands.Cog):
     """
-        Command class.
+    Command class.
     """
 
     def __init__(self, bot):
@@ -21,7 +21,9 @@ class Commands(commands.Cog):
         """
         Lists up commands.
         """
-        message_content = "# AC3 Commands\n Here is a list of available AC3 commands.\n\n"
+        message_content = (
+            "# AC3 Commands\n Here is a list of available AC3 commands.\n\n"
+        )
 
         commands_dict = {
             "/say": "Send a message in the chat.",
