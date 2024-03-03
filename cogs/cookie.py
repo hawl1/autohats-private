@@ -15,7 +15,7 @@ class Cookie(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def register(self, ctx):
+    async def cookie(self, ctx):
         """
         Function to register the command.
         """

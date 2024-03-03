@@ -26,10 +26,6 @@ async def on_ready():
     Loads commands and cogs to bot.
     """
 
-    for filename in os.listdir("./commands"):
-        if filename.endswith(".py"):
-            await bot.load_extension(f"commands.{filename[:-3]}")
-
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")

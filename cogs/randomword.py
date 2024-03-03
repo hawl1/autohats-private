@@ -1,12 +1,12 @@
 """
-    Example cog example that sends cookie emoji.
+    Cog that sends a random word
 """
 
 from discord.ext import commands
 import httpx
 
 
-class Cookie(commands.Cog):
+class RandomWord(commands.Cog):
     """
     Command class.
     """
@@ -16,9 +16,9 @@ class Cookie(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def register(self, ctx):
+    async def randomword(self, ctx):
         """
-        Function to register the command.
+        Function to send a random word.
         """
 
         response = httpx.get("https://random-word-api.herokuapp.com/word").json()[0]
@@ -29,4 +29,5 @@ async def setup(bot):
     """
     Runs to add the command to the bot
     """
-    await bot.add_cog(Cookie(bot))
+    await bot.add_cog(RandomWord(bot))
+

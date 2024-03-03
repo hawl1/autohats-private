@@ -16,7 +16,7 @@ class RandomNumber(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def register(self, ctx):
+    async def randomnumber(self, ctx):
         """
         Function to register the command.
         """
