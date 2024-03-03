@@ -30,4 +30,3 @@ async def setup(bot):
     Runs to add the command to the bot
     """
     await bot.add_cog(RandomWord(bot))
-
