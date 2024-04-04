@@ -26,7 +26,6 @@ class Commands(commands.Cog):
         )
 
         commands_dict = {
-            "/say": "Send a message in the chat.",
             "/commands": "Display a list of available commands.",
             "/report": "Report an issue or user to the moderators.",
             "/support": "Get assistance from the support team.",
@@ -44,9 +43,6 @@ class Commands(commands.Cog):
             "/random_number": "Get a random number.",
             "/currency": "Check your in-game currency balance.",
             "/message": "Send a private message to another user.",
-            "/language": "Set your preferred language.",
-            "/correct": "Correct a previous message.",
-            "/translate": "Translate a message.",
             "/register": "Register for an AC3 account.",
         }
 
