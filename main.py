@@ -5,6 +5,7 @@
 """
 
 import os
+import datetime
 
 import discord
 from discord.ext import commands
@@ -21,7 +22,7 @@ from peewee import DateTimeField, SQL
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 database = get_database()
-
+User._meta.database = database
 
 @bot.event
 async def on_command(ctx):
@@ -34,12 +35,20 @@ async def on_command(ctx):
         ctx (commands.Context): The context of the command.
 
     """
+
+    if (
+            not Session.select()
+            .where(Session.discord_id == str(ctx.author.id))
+            .exists()
+        ):
+        return
+    
     user_id = ctx.author.id
     session = Session.get(str(user_id) == Session.discord_id)
 
-    if session:
-        user = User.get(session.account_id)
-        user.last_online = DateTimeField(constraints=[SQL("DEFAULT CURRENT_TIMESTAMP")])
+    user = User.get(session.account_id)
+    user.last_online = datetime.datetime.now()
+    user.save()
 
 
 @bot.event
