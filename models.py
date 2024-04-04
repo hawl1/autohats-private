@@ -4,21 +4,29 @@
     Creates bunch of tables
 """
 
-
 from peewee import MySQLDatabase, Model, SQL, ForeignKeyField
 from peewee import AutoField, CharField, TextField, IntegerField, DateTimeField
 from dotenv import dotenv_values
 
 config = dotenv_values(".env")
 
+
+def get_database():
+    """
+    Function to get the database connection.
+    """
+    config = dotenv_values(".env")
+    return MySQLDatabase(
+        config["DB_NAME"],
+        user=config["DB_USR"],
+        password=config["DB_USR_PASSWD"],
+        host=config["DB_HOST"],
+        port=3306,
+    )
+
+
 # Define your database connection
-database = MySQLDatabase(
-    config["DB_NAME"],
-    user=config["DB_USR"],
-    password=config["DB_USR_PASSWD"],
-    host=config["DB_HOST"],
-    port=3306,
-)
+database = get_database()
 
 
 # pylint: disable=too-few-public-methods
@@ -57,6 +65,7 @@ class User(BaseModel):
     description = TextField(null=True)
     coins = IntegerField(default=0)
     joined_at = DateTimeField(constraints=[SQL("DEFAULT CURRENT_TIMESTAMP")])
+    last_online = DateTimeField(constraints=[SQL("DEFAULT CURRENT_TIMESTAMP")])
 
 
 class Item(BaseModel):
@@ -180,3 +189,5 @@ class Session(BaseModel):
 
     discord_id = CharField(max_length=255, unique=True)
     account_id = IntegerField()
+
+database.create_tables([User, Item, Friend, Follower, Game, Group, GroupMember, Session])

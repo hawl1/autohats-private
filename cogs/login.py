@@ -6,23 +6,18 @@ from discord.ext import commands
 import discord
 
 from dotenv import dotenv_values
-from peewee import MySQLDatabase
 from argon2 import PasswordHasher, exceptions
+
 # if you are watching files, you know why.
 # pylint: disable=import-error
-from models import User, Session
+from models import User, Session, get_database
 
 config = dotenv_values(".env")
 
-database = MySQLDatabase(
-    config["DB_NAME"],
-    user=config["DB_USR"],
-    password=config["DB_USR_PASSWD"],
-    host=config["DB_HOST"],
-    port=3306,
-)
+database = get_database()
 
 ph = PasswordHasher()
+
 
 class Login(commands.Cog):
     """
@@ -45,7 +40,9 @@ class Login(commands.Cog):
         await ctx.send("Please enter your username:")
 
         def check(message):
-            return message.author == ctx.author and isinstance(message.channel, discord.DMChannel)
+            return message.author == ctx.author and isinstance(
+                message.channel, discord.DMChannel
+            )
 
         try:
             username_msg = await self.bot.wait_for("message", timeout=60, check=check)
@@ -75,6 +72,7 @@ class Login(commands.Cog):
                 await ctx.send("Invalid password.")
         except TimeoutError:
             await ctx.send("Login timed out. Please try again.")
+
 
 async def setup(bot):
     """

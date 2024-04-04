@@ -6,21 +6,15 @@ from discord.ext import commands
 import discord
 
 from dotenv import dotenv_values
-from peewee import MySQLDatabase
 from argon2 import PasswordHasher
+
 # idk how to fix this so
 # pylint: disable=import-error
-from models import User, Session
+from models import User, Session, get_database
 
 config = dotenv_values(".env")
 
-database = MySQLDatabase(
-    config["DB_NAME"],
-    user=config["DB_USR"],
-    password=config["DB_USR_PASSWD"],
-    host=config["DB_HOST"],
-    port=3306,
-)
+database = get_database()
 
 ph = PasswordHasher()
 
@@ -50,7 +44,7 @@ class Register(commands.Cog):
             )
             return
 
-        await ctx.send("Please enter your username:")
+        await ctx.send("Your username for AC3:")
 
         def check(message):
             return message.author == ctx.author and isinstance(

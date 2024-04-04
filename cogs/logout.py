@@ -7,6 +7,7 @@ import discord
 
 from dotenv import dotenv_values
 from peewee import MySQLDatabase
+
 # idk how to fix this so as well
 # pylint: disable=import-error
 from models import Session
@@ -20,6 +21,7 @@ database = MySQLDatabase(
     host=config["DB_HOST"],
     port=3306,
 )
+
 
 class Logout(commands.Cog):
     """
@@ -40,7 +42,11 @@ class Logout(commands.Cog):
             return
 
         # Check if user is logged in
-        if not Session.select().where(Session.discord_id == str(ctx.author.id)).exists():
+        if (
+            not Session.select()
+            .where(Session.discord_id == str(ctx.author.id))
+            .exists()
+        ):
             await ctx.send("You are not logged in.")
             return
 
@@ -48,11 +54,16 @@ class Logout(commands.Cog):
         await ctx.send("Are you sure you want to log off? (yes/no)")
 
         def check(message):
-            return message.author == ctx.author and isinstance(message.channel, discord.DMChannel) \
+            return (
+                message.author == ctx.author
+                and isinstance(message.channel, discord.DMChannel)
                 and message.content.lower() in ["yes", "no"]
+            )
 
         try:
-            confirmation_msg = await self.bot.wait_for("message", timeout=60, check=check)
+            confirmation_msg = await self.bot.wait_for(
+                "message", timeout=60, check=check
+            )
             confirmation = confirmation_msg.content.lower()
 
             if confirmation == "yes":
@@ -64,6 +75,7 @@ class Logout(commands.Cog):
                 await ctx.send("Logout cancelled.")
         except TimeoutError:
             await ctx.send("Confirmation timed out. Logout cancelled.")
+
 
 async def setup(bot):
     """
